@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio Website</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Left Side - Fixed Information -->
+      <aside class="sidebar">
+        <div class="logo">
+          <h1>Kennedy<sup>®</sup></h1>
+          <p>Frontend Designer<br />& Developer</p>
+        </div>
+
+        <div class="profile">
+          <img
+            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80"
+            alt="Profile Image"
+            class="profile-img"
+          />
+        </div>
+
+        <div class="contact-info">
+          <p class="email">kennedymwaniki089@gmail.com</p>
+          <p class="location">Based in Nairobi, Kenya</p>
+        </div>
+
+        <div class="copyright">
+          <p>© 2025 Kennedy. All Rights Reserved</p>
+        </div>
+
+        <div class="social-icons">
+          <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-dribbble"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+          <a href="https://github.com/kennedymwaniki" class="social-icon"
+            ><i class="fab fa-github"></i
+          ></a>
+        </div>
+
+        <div class="hire-button">
+          <a href="#contact" class="btn">
+            <i class="far fa-envelope"></i> HIRE ME!
+          </a>
+        </div>
+      </aside>
+
+      <!-- Right Side - Content Area -->
+      <main class="content">
+        <!-- Top Navigation -->
+        <nav class="main-nav"></nav>
+
+        <!-- Side Navigation -->
+        <nav class="side-nav">
+          <ul>
+            <li class="active" data-section="home">
+              <a href="#home"><i class="fas fa-home"></i></a>
+              <span class="tooltip">Home</span>
+            </li>
+            <li data-section="about">
+              <a href="#about"><i class="fas fa-user"></i></a>
+              <span class="tooltip">About</span>
+            </li>
+            <li data-section="skills">
+              <a href="#skills"><i class="fas fa-code"></i></a>
+              <span class="tooltip">Skills</span>
+            </li>
+            <li data-section="contact">
+              <a href="#contact"><i class="fas fa-envelope"></i></a>
+              <span class="tooltip">Contact</span>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="content-sections">
+          <!-- Home Section -->
+          <section id="home" class="section active">
+            <div class="hero">
+              <h1>
+                Hi I am <span class="highlight">Kennedy</span>,<br />Frontend
+                Designer and<br />Developer
+              </h1>
+              <p>
+                I design and code beautifully simple things and I love what I
+                do.<br />Just simple like that!
+              </p>
+            </div>
+          </section>
+
+          <!-- About Section -->
+          <section id="about" class="section">
+            <div class="section-content">
+              <h2>About Me</h2>
+              <p>
+                I'm a passionate Framer Designer and Developer based in Los
+                Angeles. With expertise in creating intuitive and responsive web
+                experiences, I blend the art of design with the precision of
+                development.
+              </p>
+
+              <div class="about-details">
+                <div class="about-item">
+                  <h3>Experience</h3>
+                  <p>
+                    Over 3 years of professional experience in UI/UX design and
+                    front-end development. I've worked with startups and
+                    established companies to bring their digital products to
+                    life.
+                  </p>
+                </div>
+
+                <div class="about-item">
+                  <h3>Education</h3>
+                  <p>
+                    Bachelor of Sceince in Software Enginering at Kirinyaga
+                    University. Continued education through specialized courses
+                    in modern web development frameworks.
+                  </p>
+                </div>
+
+                <div class="about-item">
+                  <h3>Approach</h3>
+                  <p>
+                    I believe in simplicity and functionality. My design
+                    philosophy centers around creating clean, accessible
+                    interfaces that deliver exceptional user experiences.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Skills Section -->
+          <section id="skills" class="section">
+            <div class="section-content">
+              <h2>My Skills</h2>
+              <p>
+                As a designer and developer, I've cultivated a diverse set of
+                skills that allow me to create comprehensive web solutions.
+              </p>
+
+              <div class="skills-container">
+                <div class="skill">
+                  <div class="skill-info">
+                    <span class="skill-name">HTML5/CSS3</span>
+                    <span class="skill-percentage">95%</span>
+                  </div>
+                  <div class="skill-bar">
+                    <div class="skill-progress" style="width: 95%"></div>
+                  </div>
+                </div>
+
+                <div class="skill">
+                  <div class="skill-info">
+                    <span class="skill-name">JavaScript</span>
+                    <span class="skill-percentage">85%</span>
+                  </div>
+                  <div class="skill-bar">
+                    <div class="skill-progress" style="width: 85%"></div>
+                  </div>
+                </div>
+
+                <div class="skill">
+                  <div class="skill-info">
+                    <span class="skill-name">React</span>
+                    <span class="skill-percentage">80%</span>
+                  </div>
+                  <div class="skill-bar">
+                    <div class="skill-progress" style="width: 80%"></div>
+                  </div>
+                </div>
+
+                <div class="skill">
+                  <div class="skill-info">
+                    <span class="skill-name">UI/UX Design</span>
+                    <span class="skill-percentage">90%</span>
+                  </div>
+                  <div class="skill-bar">
+                    <div class="skill-progress" style="width: 90%"></div>
+                  </div>
+                </div>
+
+                <div class="skill">
+                  <div class="skill-info">
+                    <span class="skill-name">Framer</span>
+                    <span class="skill-percentage">92%</span>
+                  </div>
+                  <div class="skill-bar">
+                    <div class="skill-progress" style="width: 92%"></div>
+                  </div>
+                </div>
+
+                <div class="skill">
+                  <div class="skill-info">
+                    <span class="skill-name">Responsive Design</span>
+                    <span class="skill-percentage">88%</span>
+                  </div>
+                  <div class="skill-bar">
+                    <div class="skill-progress" style="width: 88%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Contact Section -->
+          <section id="contact" class="section">
+            <div class="section-content">
+              <h2>Get In Touch</h2>
+              <p>
+                Interested in working together? Feel free to reach out to me for
+                collaborations or just to say hello!
+              </p>
+
+              <form class="contact-form">
+                <div class="form-group">
+                  <input
+                    type="text"
+                    id="name"
+                    placeholder="Your Name"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <input
+                    type="email"
+                    id="email"
+                    placeholder="Your Email"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <input type="text" id="subject" placeholder="Subject" />
+                </div>
+
+                <div class="form-group">
+                  <textarea
+                    id="message"
+                    placeholder="Your Message"
+                    rows="5"
+                    required
+                  ></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">Send Message</button>
+              </form>
+
+              <div class="contact-info">
+                <div class="contact-item">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <p>Nairobi, kenya</p>
+                </div>
+
+                <div class="contact-item">
+                  <i class="fas fa-envelope"></i>
+                  <p>kennedymwaniki089@gmail.com</p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
