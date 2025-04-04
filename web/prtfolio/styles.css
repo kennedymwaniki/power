@@ -146,7 +146,7 @@ body {
 /* Content Area Styles */
 .content {
   flex: 1;
-  margin-left: calc(25% + 20px); /* Added spacing between sidebar and content */
+  margin-left: calc(25% + 20px);
   min-height: 100vh;
   position: relative;
   background-color: #000;
@@ -166,12 +166,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(
-    0,
-    0,
-    0,
-    0.8
-  ); /* Dark overlay for better text readability */
+  background-color: rgba(0, 0, 0, 0.8);
   z-index: -1;
 }
 
