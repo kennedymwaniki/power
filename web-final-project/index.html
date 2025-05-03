@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sweet Delights Bakery</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar">
+      <div class="container">
+        <div class="logo">
+          <span class="brand-name">Sweet Delights</span>
+        </div>
+
+        <div class="nav-links">
+          <a href="#home" class="nav-link">Home</a>
+          <a href="#menu" class="nav-link">Menu</a>
+          <a href="#about" class="nav-link">About</a>
+          <a href="#contact" class="nav-link">Contact</a>
+          <button id="darkModeToggle" class="dark-mode-toggle">
+            <i class="fas fa-moon"></i>
+          </button>
+        </div>
+
+        <div class="mobile-menu-btn">
+          <button id="mobileMenuButton">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div id="mobileMenu" class="mobile-menu">
+        <div class="mobile-menu-links">
+          <a href="#home" class="nav-link">Home</a>
+          <a href="#menu" class="nav-link">Menu</a>
+          <a href="#about" class="nav-link">About</a>
+          <a href="#contact" class="nav-link">Contact</a>
+          <button id="darkModeToggleMobile" class="dark-mode-toggle-mobile">
+            <i class="fas fa-moon"></i>
+            Toggle Dark Mode
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+      <div class="container">
+        <div class="hero-content slide-in">
+          <h1>Freshly Baked Happiness</h1>
+          <p>Every bite tells a story of passion and tradition</p>
+          <button class="btn primary-btn pulse">Order Now</button>
+        </div>
+
+        <div class="scroll-indicator">
+          <a href="#menu" class="animate-bounce">
+            <i class="fas fa-chevron-down"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="menu-section">
+      <div class="container">
+        <div class="section-header slide-in">
+          <h2>Our Sweet Selection</h2>
+          <p>
+            Indulge in our handcrafted pastries, cakes, and desserts made with
+            love and the finest ingredients
+          </p>
+        </div>
+
+        <div class="menu-grid">
+          <!-- Cake 1 -->
+          <div class="cake-card">
+            <div class="cake-img-container">
+              <img
+                src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1089&q=80"
+                alt="Chocolate Cake"
+              />
+              <div class="cake-overlay">
+                <button
+                  onclick="openModal('chocolate')"
+                  class="view-details-btn"
+                >
+                  View Details
+                </button>
+              </div>
+            </div>
+            <div class="cake-info">
+              <h3>Chocolate Dream</h3>
+              <p>Rich chocolate cake with layers of ganache</p>
+              <div class="cake-price-action">
+                <span class="price">$24.99</span>
+                <button class="add-to-cart-btn">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Cake 2 -->
+          <div class="cake-card">
+            <div class="cake-img-container">
+              <img
+                src="https://images.unsplash.com/photo-1558301211-0d8c8edde3ec?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+                alt="Red Velvet Cake"
+              />
+              <div class="cake-overlay">
+                <button onclick="openModal('velvet')" class="view-details-btn">
+                  View Details
+                </button>
+              </div>
+            </div>
+            <div class="cake-info">
+              <h3>Velvet Romance</h3>
+              <p>Classic red velvet with cream cheese frosting</p>
+              <div class="cake-price-action">
+                <span class="price">$26.99</span>
+                <button class="add-to-cart-btn">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Cake 3 -->
+          <div class="cake-card">
+            <div class="cake-img-container">
+              <img
+                src="https://images.unsplash.com/photo-1562440499-64c9a111f713?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1077&q=80"
+                alt="Fruit Tart"
+              />
+              <div class="cake-overlay">
+                <button onclick="openModal('tart')" class="view-details-btn">
+                  View Details
+                </button>
+              </div>
+            </div>
+            <div class="cake-info">
+              <h3>Fruit Fantasy</h3>
+              <p>Seasonal fruits on a delicate pastry cream base</p>
+              <div class="cake-price-action">
+                <span class="price">$18.99</span>
+                <button class="add-to-cart-btn">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="view-all-btn-container">
+          <button class="btn secondary-btn">View Full Menu</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+      <div class="container">
+        <div class="about-content">
+          <div class="about-text slide-in">
+            <h2>Our Story</h2>
+            <p>
+              Founded in 2010, Sweet Delights began as a small family-owned
+              bakery with a passion for creating delicious, handcrafted
+              desserts. What started as a humble kitchen experiment has grown
+              into a beloved local institution.
+            </p>
+            <p>
+              Our recipes have been passed down through generations, combining
+              traditional techniques with modern creativity. Every item in our
+              bakery is made from scratch using the finest ingredients, ensuring
+              quality and taste in every bite.
+            </p>
+            <div class="feature-boxes">
+              <div class="feature-box">
+                <i class="fas fa-award"></i>
+                <p>Award Winning</p>
+              </div>
+              <div class="feature-box">
+                <i class="fas fa-leaf"></i>
+                <p>Fresh Ingredients</p>
+              </div>
+              <div class="feature-box">
+                <i class="fas fa-heart"></i>
+                <p>Made with Love</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="about-image-container">
+            <div class="about-image rotate-3d">
+              <img
+                src="https://images.unsplash.com/photo-1603532648955-039310d9ed75?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80"
+                alt="Bakery Interior"
+              />
+            </div>
+            <div class="rating-badge">
+              <div class="rating-icon">
+                <i class="fas fa-star"></i>
+              </div>
+              <div class="rating-text">
+                <p class="rating-number">4.9/5</p>
+                <p class="rating-label">Customer Rating</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Visit Us</h2>
+          <p>
+            We'd love to hear from you! Come visit our bakery or get in touch.
+          </p>
+        </div>
+
+        <div class="contact-grid">
+          <div class="contact-info-card">
+            <h3>Contact Information</h3>
+
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-map-marker-alt"></i>
+              </div>
+              <div class="contact-text">
+                <h4>Address</h4>
+                <p>123 Sweet Street, Dessert City</p>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-phone"></i>
+              </div>
+              <div class="contact-text">
+                <h4>Phone</h4>
+                <p>(123) 456-7890</p>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <div class="contact-text">
+                <h4>Email</h4>
+                <p>hello@sweetdelights.com</p>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-clock"></i>
+              </div>
+              <div class="contact-text">
+                <h4>Hours</h4>
+                <p>Mon-Fri: 8am - 7pm</p>
+                <p>Sat-Sun: 9am - 5pm</p>
+              </div>
+            </div>
+
+            <div class="social-links">
+              <h4>Follow Us</h4>
+              <div class="social-icons">
+                <a href="#" class="social-icon">
+                  <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="social-icon">
+                  <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="social-icon">
+                  <i class="fab fa-twitter"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-form-card">
+            <h3>Send Us a Message</h3>
+            <form id="contactForm">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" />
+              </div>
+
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" />
+              </div>
+
+              <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" rows="5"></textarea>
+              </div>
+
+              <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-about">
+            <h3>Sweet Delights</h3>
+            <p>Bringing joy to your taste buds since 2010.</p>
+          </div>
+
+          <div class="footer-links">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="#home">Home</a></li>
+              <li><a href="#menu">Menu</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-products">
+            <h4>Our Products</h4>
+            <ul>
+              <li><a href="#">Cakes</a></li>
+              <li><a href="#">Pastries</a></li>
+              <li><a href="#">Cookies</a></li>
+              <li><a href="#">Breads</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-newsletter">
+            <h4>Newsletter</h4>
+            <p>Subscribe to get updates on new products and special offers.</p>
+            <div class="newsletter-form">
+              <input type="email" placeholder="Your email" />
+              <button>
+                <i class="fas fa-paper-plane"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>© 2023 Sweet Delights. All rights reserved.</p>
+          <div class="footer-social">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-pinterest"></i></a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Product Modal -->
+    <div id="productModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-container">
+          <button onclick="closeModal()" class="close-modal-btn">
+            <i class="fas fa-times"></i>
+          </button>
+
+          <div class="modal-grid">
+            <div class="modal-image-container">
+              <img id="modalImage" src="" alt="" />
+            </div>
+
+            <div class="modal-info">
+              <h3 id="modalTitle"></h3>
+              <p id="modalPrice" class="modal-price"></p>
+              <p id="modalDescription" class="modal-description"></p>
+
+              <div class="modal-ingredients">
+                <h4>Ingredients</h4>
+                <ul id="modalIngredients">
+                  <!-- Filled by JavaScript -->
+                </ul>
+              </div>
+
+              <div class="modal-options">
+                <div class="quantity-selector">
+                  <label for="quantity">Quantity</label>
+                  <input type="number" id="quantity" min="1" value="1" />
+                </div>
+
+                <div class="size-selector">
+                  <label for="size">Size</label>
+                  <select id="size">
+                    <option>Small</option>
+                    <option>Medium</option>
+                    <option>Large</option>
+                  </select>
+                </div>
+              </div>
+
+              <button class="modal-add-btn">
+                Add to Cart - <span id="modalTotalPrice"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top">
+      <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="script.js"></script>
+  </body>
+</html>
