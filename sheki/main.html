@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blooming Delights - Flower Shop</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      /* Custom styles */
+      .hero-section {
+        background-image: linear-gradient(
+            rgba(0, 0, 0, 0.4),
+            rgba(0, 0, 0, 0.4)
+          ),
+          url("https://images.unsplash.com/photo-1526397751294-331021109fbd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80");
+        background-size: cover;
+        background-position: center;
+        height: 80vh;
+      }
+
+      .flower-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .money-bouquet {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      }
+
+      .dark .money-bouquet {
+        background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+      }
+
+      /* Navbar styles */
+      .navbar {
+        background-color: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .dark .navbar {
+        background-color: rgba(17, 24, 39, 0.98);
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      .nav-link {
+        color: #1f2937; /* Very dark gray */
+        font-weight: 600;
+        transition: all 0.3s ease;
+        position: relative;
+      }
+
+      .dark .nav-link {
+        color: #f3f4f6; /* Light gray for dark mode */
+      }
+
+      .nav-link:hover {
+        color: #10b981; /* Emerald green on hover */
+      }
+
+      .nav-link::after {
+        content: "";
+        display: block;
+        width: 0;
+        height: 2px;
+        background: #10b981;
+        transition: width 0.3s;
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+      }
+
+      .nav-link:hover::after {
+        width: 100%;
+      }
+
+      /* Mobile menu styles */
+      .mobile-menu {
+        background-color: rgba(255, 255, 255, 0.98);
+      }
+
+      .dark .mobile-menu {
+        background-color: rgba(17, 24, 39, 0.98);
+      }
+
+      /* Animation for logo */
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.8;
+        }
+      }
+
+      .animate-pulse {
+        animation: pulse 2s infinite;
+      }
+
+      /* Cart styles */
+      .cart-item {
+        transition: all 0.3s ease;
+      }
+
+      .cart-item:hover {
+        background-color: rgba(16, 185, 129, 0.1);
+      }
+
+      /* Section spacing */
+      section {
+        scroll-margin-top: 100px;
+      }
+
+      /* Flower animation */
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      .float-animation {
+        animation: float 3s ease-in-out infinite;
+      }
+
+      /* Petal animation */
+      .petal {
+        position: absolute;
+        background-size: contain;
+        background-repeat: no-repeat;
+        opacity: 0.7;
+        z-index: -1;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300 overflow-x-hidden"
+  >
+    <!-- Floating petals background -->
+    <div id="petals-container"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar sticky top-0 z-50 transition-colors duration-300">
+      <div class="container mx-auto px-6 py-4">
+        <div class="flex justify-between items-center">
+          <div class="flex items-center space-x-4">
+            <div class="text-2xl font-bold text-emerald-500 animate-pulse">
+              <i class="fas fa-spa mr-2 float-animation"></i>
+              <span>Blooming Delights</span>
+            </div>
+          </div>
+
+          <div class="hidden md:flex items-center space-x-8">
+            <a href="#home" class="nav-link">Home</a>
+            <a href="#flowers" class="nav-link">Flowers</a>
+            <a href="#vases" class="nav-link">Vases</a>
+            <a href="#money-bouquets" class="nav-link">Money Bouquets</a>
+            <a href="#contact" class="nav-link">Contact</a>
+          </div>
+
+          <div class="flex items-center space-x-4">
+            <button
+              id="cart-toggle"
+              class="relative p-2 text-gray-700 dark:text-gray-200 hover:text-emerald-500 dark:hover:text-emerald-400"
+            >
+              <i class="fas fa-shopping-cart text-xl"></i>
+              <span
+                id="cart-count"
+                class="absolute -top-1 -right-1 bg-emerald-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center"
+                >0</span
+              >
+            </button>
+
+            <button
+              id="theme-toggle"
+              class="p-2 text-gray-700 dark:text-gray-200 hover:text-emerald-500 dark:hover:text-emerald-400"
+            >
+              <i class="fas fa-moon text-xl"></i>
+            </button>
+
+            <button
+              id="mobile-menu-toggle"
+              class="md:hidden p-2 text-gray-700 dark:text-gray-200 hover:text-emerald-500 dark:hover:text-emerald-400"
+            >
+              <i class="fas fa-bars text-xl"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div
+          id="mobile-menu"
+          class="mobile-menu md:hidden hidden mt-4 pb-4 rounded-lg shadow-lg transition-all duration-300"
+        >
+          <a
+            href="#home"
+            class="block py-3 px-6 nav-link hover:bg-gray-100 dark:hover:bg-gray-800 rounded"
+            >Home</a
+          >
+          <a
+            href="#flowers"
+            class="block py-3 px-6 nav-link hover:bg-gray-100 dark:hover:bg-gray-800 rounded"
+            >Flowers</a
+          >
+          <a
+            href="#vases"
+            class="block py-3 px-6 nav-link hover:bg-gray-100 dark:hover:bg-gray-800 rounded"
+            >Vases</a
+          >
+          <a
+            href="#money-bouquets"
+            class="block py-3 px-6 nav-link hover:bg-gray-100 dark:hover:bg-gray-800 rounded"
+            >Money Bouquets</a
+          >
+          <a
+            href="#contact"
+            class="block py-3 px-6 nav-link hover:bg-gray-100 dark:hover:bg-gray-800 rounded"
+            >Contact</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section
+      id="home"
+      class="hero-section flex items-center justify-center text-center text-white"
+    >
+      <div class="container mx-auto px-6">
+        <h1 class="text-5xl md:text-6xl font-bold mb-6">
+          Beautiful Flowers for Every Occasion
+        </h1>
+        <p class="text-xl md:text-2xl mb-8">
+          Fresh, vibrant flowers to brighten your day or surprise someone
+          special
+        </p>
+        <a
+          href="#flowers"
+          class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 px-8 rounded-full transition duration-300 inline-block transform hover:scale-105"
+        >
+          <i class="fas fa-arrow-down mr-2"></i>Shop Now
+        </a>
+      </div>
+    </section>
+
+    <!-- Flowers Section -->
+    <section id="flowers" class="py-20 bg-white dark:bg-gray-800">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold mb-4">Our Flower Collection</h2>
+          <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            Discover our exquisite selection of hand-arranged bouquets for every
+            occasion
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Flower Card 1 -->
+          <div
+            class="flower-card bg-gray-50 dark:bg-gray-700 rounded-lg overflow-hidden shadow-lg transition duration-500"
+          >
+            <div class="relative h-64 overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1526047932273-341f2a7631f9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1480&q=80"
+                alt="Rose Bouquet"
+                class="w-full h-full object-cover transition duration-500 hover:scale-110"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"
+              ></div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-2">Elegant Rose Bouquet</h3>
+              <p class="text-gray-600 dark:text-gray-300 mb-4">
+                A classic arrangement of 12 premium roses in your choice of
+                color.
+              </p>
+              <div class="flex justify-between items-center">
+                <span class="text-lg font-bold">$49.99</span>
+                <button
+                  class="add-to-cart bg-emerald-500 hover:bg-emerald-600 text-white py-2 px-4 rounded-full transition duration-300 flex items-center"
+                  data-name="Elegant Rose Bouquet"
+                  data-price="49.99"
+                >
+                  <i class="fas fa-plus mr-2"></i>Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Flower Card 2 -->
+          <div
+            class="flower-card bg-gray-50 dark:bg-gray-700 rounded-lg overflow-hidden shadow-lg transition duration-500"
+          >
+            <div class="relative h-64 overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1560717843-60cb3e6dd0f5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                alt="Tulip Arrangement"
+                class="w-full h-full object-cover transition duration-500 hover:scale-110"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"
+              ></div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-2">
+                Spring Tulip Arrangement
+              </h3>
+              <p class="text-gray-600 dark:text-gray-300 mb-4">
+                Bright and cheerful tulips in a mix of spring colors.
+              </p>
+              <div class="flex justify-between items-center">
+                <span class="text-lg font-bold">$39.99</span>
+                <button
+                  class="add-to-cart bg-emerald-500 hover:bg-emerald-600 text-white py-2 px-4 rounded-full transition duration-300 flex items-center"
+                  data-name="Spring Tulip Arrangement"
+                  data-price="39.99"
+                >
+                  <i class="fas fa-plus mr-2"></i>Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Flower Card 3 -->
+          <div
+            class="flower-card bg-gray-50 dark:bg-gray-700 rounded-lg overflow-hidden shadow-lg transition duration-500"
+          >
+            <div class="relative h-64 overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1560801631-fbd9c0ddf13e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                alt="Lily Bouquet"
+                class="w-full h-full object-cover transition duration-500 hover:scale-110"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"
+              ></div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-2">Luxury Lily Bouquet</h3>
+              <p class="text-gray-600 dark:text-gray-300 mb-4">
+                Exotic lilies with delicate fragrance, perfect for special
+                occasions.
+              </p>
+              <div class="flex justify-between items-center">
+                <span class="text-lg font-bold">$59.99</span>
+                <button
+                  class="add-to-cart bg-emerald-500 hover:bg-emerald-600 text-white py-2 px-4 rounded-full transition duration-300 flex items-center"
+                  data-name="Luxury Lily Bouquet"
+                  data-price="59.99"
+                >
+                  <i class="fas fa-plus mr-2"></i>Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Flower Card 4 -->
+          <div
+            class="flower-card bg-gray-50 dark:bg-gray-700 rounded-lg overflow-hidden shadow-lg transition duration-500"
+          >
+            <div class="relative h-64 overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1529068755536-a5ade0dcb4e8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1481&q=80"
+                alt="Sunflower Bouquet"
+                class="w-full h-full object-cover transition duration-500 hover:scale-110"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"
+              ></div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-2">
+                Sunshine Sunflower Bouquet
+              </h3>
+              <p class="text-gray-600 dark:text-gray-300 mb-4">
+                Bright yellow sunflowers that bring summer joy all year round.
+              </p>
+              <div class="flex justify-between items-center">
+                <span class="text-lg font-bold">$45.99</span>
+                <button
+                  class="add-to-cart bg-emerald-500 hover:bg-emerald-600 text-white py-2 px-4 rounded-full transition duration-300 flex items-center"
+                  data-name="Sunshine Sunflower Bouquet"
+                  data-price="45.99"
+                >
+                  <i class="fas fa-plus mr-2"></i>Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Flower Card 5 -->
+          <div
+            class="flower-card bg-gray-50 dark:bg-gray-700 rounded-lg overflow-hidden shadow-lg transition duration-500"
+          >
+            <div class="relative h-64 overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1559780394-4c7d929c6047?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                alt="Orchid Arrangement"
+                class="w-full h-full object-cover transition duration-500 hover:scale-110"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"
+              ></div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-2">
+                Elegant Orchid Arrangement
+              </h3>
+              <p class="text-gray-600 dark:text-gray-300 mb-4">
+                Sophisticated orchids that add luxury to any space.
+              </p>
+              <div class="flex justify-between items-center">
+                <span class="text-lg font-bold">$69.99</span>
+                <button
+                  class="add-to-cart bg-emerald-500 hover:bg-emerald-600 text-white py-2 px-4 rounded-full transition duration-300 flex items-center"
+                  data-name="Elegant Orchid Arrangement"
+                  data-price="69.99"
+                >
+                  <i class="fas fa-plus mr-2"></i>Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Flower Card 6 -->
+          <div
+            class="flower-card bg-gray-50 dark:bg-gray-700 rounded-lg overflow-hidden shadow-lg transition duration-500"
+          >
+            <div class="relative h-64 overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1519378058457-4c29a0ab2b5d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1448&q=80"
+                alt="Wildflower Bouquet"
+                class="w-full h-full object-cover transition duration-500 hover:scale-110"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"
+              ></div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-2">
+                Wildflower Meadow Bouquet
+              </h3>
+              <p class="text-gray-600 dark:text-gray-300 mb-4">
+                A rustic mix of seasonal wildflowers for a natural look.
+              </p>
+              <div class="flex justify-between items-center">
+                <span class="text-lg font-bold">$42.99</span>
+                <button
+                  class="add-to-cart bg-emerald-500 hover:bg-emerald-600 text-white py-2 px-4 rounded-full transition duration-300 flex items-center"
+                  data-name="Wildflower Meadow Bouquet"
+                  data-price="42.99"
+                >
+                  <i class="fas fa-plus mr-2"></i>Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Vases Section -->
+    <section id="vases" class="py-20 bg-gray-100 dark:bg-gray-700">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold mb-4">Beautiful Vases</h2>
+          <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            Complement your flowers with our hand-selected vases
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Vase 1 -->
+          <div
+            class="bg-white dark:bg-gray-600 rounded-lg overflow-hidden shadow-lg transition duration-500 hover:shadow-xl"
+          >
+            <div class="relative h-64 overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1585320800885-3496f8e0d0e9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                alt="Glass Vase with Flowers"
+                class="w-full h-full object-cover transition duration-500 hover:scale-110"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"
+              ></div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-2">
+                Crystal Clear Glass Vase
+              </h3>
+              <p class="text-gray-600 dark:text-gray-300 mb-4">
+                Modern and elegant glass vase that complements any flower
+                arrangement.
+              </p>
+              <div class="flex justify-between items-center">
+                <span class="text-lg font-bold">$29.99</span>
+                <button
+                  class="add-to-cart bg-emerald-500 hover:bg-emerald-600 text-white py-2 px-4 rounded-full transition duration-300 flex items-center"
+                  data-name="Crystal Clear Glass Vase"
+                  data-price="29.99"
+                >
+                  <i class="fas fa-plus mr-2"></i>Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Vase 2 -->
+          <div
+            class="bg-white dark:bg-gray-600 rounded-lg overflow-hidden shadow-lg transition duration-500 hover:shadow-xl"
+          >
+            <div class="relative h-64 overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1587854692152-cbe660dbde88?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80"
+                alt="Ceramic Vase with Flowers"
+                class="w-full h-full object-cover transition duration-500 hover:scale-110"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"
+              ></div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-2">
+                Handcrafted Ceramic Vase
+              </h3>
+              <p class="text-gray-600 dark:text-gray-300 mb-4">
+                Artisanal ceramic vase with unique patterns and textures.
+              </p>
+              <div class="flex justify-between items-center">
+                <span class="text-lg font-bold">$39.99</span>
+                <button
+                  class="add-to-cart bg-emerald-500 hover:bg-emerald-600 text-white py-2 px-4 rounded-full transition duration-300 flex items-center"
+                  data-name="Handcrafted Ceramic Vase"
+                  data-price="39.99"
+                >
+                  <i class="fas fa-plus mr-2"></i>Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Vase 3 -->
+          <div
+            class="bg-white dark:bg-gray-600 rounded-lg overflow-hidden shadow-lg transition duration-500 hover:shadow-xl"
+          >
+            <div class="relative h-64 overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1605000797499-95a51c5269ae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80"
+                alt="Modern Vase with Flowers"
+                class="w-full h-full object-cover transition duration-500 hover:scale-110"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"
+              ></div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-2">
+                Contemporary Metal Vase
+              </h3>
+              <p class="text-gray-600 dark:text-gray-300 mb-4">
+                Sleek metal vase with a minimalist design for modern interiors.
+              </p>
+              <div class="flex justify-between items-center">
+                <span class="text-lg font-bold">$34.99</span>
+                <button
+                  class="add-to-cart bg-emerald-500 hover:bg-emerald-600 text-white py-2 px-4 rounded-full transition duration-300 flex items-center"
+                  data-name="Contemporary Metal Vase"
+                  data-price="34.99"
+                >
+                  <i class="fas fa-plus mr-2"></i>Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Money Bouquets Section -->
+    <section id="money-bouquets" class="py-20 money-bouquet">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold mb-4">Money Bouquets</h2>
+          <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            The perfect gift that grows - money bouquets for special occasions
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- Money Bouquet 1 -->
+          <div
+            class="bg-white dark:bg-gray-700 rounded-lg overflow-hidden shadow-lg transition duration-500 hover:shadow-xl"
+          >
+            <div class="relative h-64 overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                alt="Money Bouquet with Flowers"
+                class="w-full h-full object-cover transition duration-500 hover:scale-110"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"
+              ></div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-2">Classic Money Bouquet</h3>
+              <p class="text-gray-600 dark:text-gray-300 mb-4">
+                Elegant arrangement with $100 in bills creatively displayed with
+                flowers.
+              </p>
+              <div class="flex justify-between items-center">
+                <span class="text-lg font-bold">From $100</span>
+                <button
+                  class="add-to-cart bg-emerald-500 hover:bg-emerald-600 text-white py-2 px-4 rounded-full transition duration-300 flex items-center"
+                  data-name="Classic Money Bouquet"
+                  data-price="100"
+                >
+                  <i class="fas fa-cog mr-2"></i>Customize
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Money Bouquet 2 -->
+          <div
+            class="bg-white dark:bg-gray-700 rounded-lg overflow-hidden shadow-lg transition duration-500 hover:shadow-xl"
+          >
+            <div class="relative h-64 overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1607082349566-73f2eab57599?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                alt="Luxury Money Bouquet with Flowers"
+                class="w-full h-full object-cover transition duration-500 hover:scale-110"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"
+              ></div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-2">Luxury Money Bouquet</h3>
+              <p class="text-gray-600 dark:text-gray-300 mb-4">
+                Premium arrangement with $500 in bills and premium flowers.
+              </p>
+              <div class="flex justify-between items-center">
+                <span class="text-lg font-bold">From $500</span>
+                <button
+                  class="add-to-cart bg-emerald-500 hover:bg-emerald-600 text-white py-2 px-4 rounded-full transition duration-300 flex items-center"
+                  data-name="Luxury Money Bouquet"
+                  data-price="500"
+                >
+                  <i class="fas fa-cog mr-2"></i>Customize
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-20 bg-white dark:bg-gray-800">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold mb-4">What Our Customers Say</h2>
+          <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            Hear from our happy customers about their experiences
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Testimonial 1 -->
+          <div class="bg-gray-50 dark:bg-gray-700 p-8 rounded-lg shadow-lg">
+            <div class="flex items-center mb-4">
+              <img
+                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1587&q=80"
+                alt="Customer"
+                class="w-12 h-12 rounded-full object-cover mr-4"
+              />
+              <div>
+                <h4 class="font-semibold">Sarah Johnson</h4>
+                <div class="flex text-yellow-400">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                </div>
+              </div>
+            </div>
+            <p class="text-gray-600 dark:text-gray-300 italic">
+              "The roses arrived fresh and beautiful, exactly as pictured. My
+              mother was thrilled with her birthday bouquet!"
+            </p>
+          </div>
+
+          <!-- Testimonial 2 -->
+          <div class="bg-gray-50 dark:bg-gray-700 p-8 rounded-lg shadow-lg">
+            <div class="flex items-center mb-4">
+              <img
+                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1587&q=80"
+                alt="Customer"
+                class="w-12 h-12 rounded-full object-cover mr-4"
+              />
+              <div>
+                <h4 class="font-semibold">Michael Chen</h4>
+                <div class="flex text-yellow-400">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                </div>
+              </div>
+            </div>
+            <p class="text-gray-600 dark:text-gray-300 italic">
+              "I ordered the money bouquet for my wife's anniversary gift. The
+              presentation was stunning and she loved it!"
+            </p>
+          </div>
+
+          <!-- Testimonial 3 -->
+          <div class="bg-gray-50 dark:bg-gray-700 p-8 rounded-lg shadow-lg">
+            <div class="flex items-center mb-4">
+              <img
+                src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1587&q=80"
+                alt="Customer"
+                class="w-12 h-12 rounded-full object-cover mr-4"
+              />
+              <div>
+                <h4 class="font-semibold">Emily Rodriguez</h4>
+                <div class="flex text-yellow-400">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star-half-alt"></i>
+                </div>
+              </div>
+            </div>
+            <p class="text-gray-600 dark:text-gray-300 italic">
+              "The wildflower bouquet brightened up my entire apartment. The
+              flowers lasted much longer than I expected!"
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-white dark:bg-gray-800">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold mb-4">Contact Us</h2>
+          <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            We'd love to hear from you! Reach out with any questions or special
+            requests
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+          <div>
+            <h3 class="text-xl font-semibold mb-4">Get in Touch</h3>
+            <p class="text-gray-600 dark:text-gray-300 mb-6">
+              Have questions about our flowers or need help with an order? Reach
+              out to us!
+            </p>
+
+            <div class="space-y-4">
+              <div class="flex items-start">
+                <i class="fas fa-map-marker-alt text-emerald-500 mt-1 mr-4"></i>
+                <div>
+                  <h4 class="font-medium">Address</h4>
+                  <p class="text-gray-600 dark:text-gray-300">
+                    123 Flower Street, Garden City, GC 12345
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-start">
+                <i class="fas fa-phone-alt text-emerald-500 mt-1 mr-4"></i>
+                <div>
+                  <h4 class="font-medium">Phone</h4>
+                  <p class="text-gray-600 dark:text-gray-300">(123) 456-7890</p>
+                </div>
+              </div>
+
+              <div class="flex items-start">
+                <i class="fas fa-envelope text-emerald-500 mt-1 mr-4"></i>
+                <div>
+                  <h4 class="font-medium">Email</h4>
+                  <p class="text-gray-600 dark:text-gray-300">
+                    info@bloomingdelights.com
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-start">
+                <i class="fas fa-clock text-emerald-500 mt-1 mr-4"></i>
+                <div>
+                  <h4 class="font-medium">Hours</h4>
+                  <p class="text-gray-600 dark:text-gray-300">
+                    Monday - Friday: 9am - 6pm<br />Saturday: 10am - 4pm<br />Sunday:
+                    Closed
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-8">
+              <h4 class="font-semibold mb-4">Follow Us</h4>
+              <div class="flex space-x-4">
+                <a
+                  href="#"
+                  class="text-gray-600 dark:text-gray-300 hover:text-emerald-500 dark:hover:text-emerald-400 transition duration-300"
+                >
+                  <i class="fab fa-facebook-f text-xl"></i>
+                </a>
+                <a
+                  href="#"
+                  class="text-gray-600 dark:text-gray-300 hover:text-emerald-500 dark:hover:text-emerald-400 transition duration-300"
+                >
+                  <i class="fab fa-instagram text-xl"></i>
+                </a>
+                <a
+                  href="#"
+                  class="text-gray-600 dark:text-gray-300 hover:text-emerald-500 dark:hover:text-emerald-400 transition duration-300"
+                >
+                  <i class="fab fa-pinterest text-xl"></i>
+                </a>
+                <a
+                  href="#"
+                  class="text-gray-600 dark:text-gray-300 hover:text-emerald-500 dark:hover:text-emerald-400 transition duration-300"
+                >
+                  <i class="fab fa-tiktok text-xl"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-semibold mb-4">Send Us a Message</h3>
+            <form class="space-y-4">
+              <div>
+                <label
+                  for="name"
+                  class="block text-gray-700 dark:text-gray-300 mb-1"
+                  >Name</label
+                >
+                <input
+                  type="text"
+                  id="name"
+                  class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 dark:bg-gray-700 dark:text-white"
+                />
+              </div>
+
+              <div>
+                <label
+                  for="email"
+                  class="block text-gray-700 dark:text-gray-300 mb-1"
+                  >Email</label
+                >
+                <input
+                  type="email"
+                  id="email"
+                  class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 dark:bg-gray-700 dark:text-white"
+                />
+              </div>
+
+              <div>
+                <label
+                  for="subject"
+                  class="block text-gray-700 dark:text-gray-300 mb-1"
+                  >Subject</label
+                >
+                <input
+                  type="text"
+                  id="subject"
+                  class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 dark:bg-gray-700 dark:text-white"
+                />
+              </div>
+
+              <div>
+                <label
+                  for="message"
+                  class="block text-gray-700 dark:text-gray-300 mb-1"
+                  >Message</label
+                >
+                <textarea
+                  id="message"
+                  rows="4"
+                  class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 dark:bg-gray-700 dark:text-white"
+                ></textarea>
+              </div>
+
+              <button
+                type="submit"
+                class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300 flex items-center justify-center"
+              >
+                <i class="fas fa-paper-plane mr-2"></i>Send Message
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="py-16 bg-emerald-50 dark:bg-gray-700">
+      <div class="container mx-auto px-6 text-center">
+        <h2 class="text-3xl font-bold mb-4">Join Our Flower Club</h2>
+        <p class="text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
+          Subscribe to our newsletter for exclusive offers, flower care tips,
+          and seasonal specials
+        </p>
+
+        <form class="max-w-md mx-auto flex">
+          <input
+            type="email"
+            placeholder="Your email address"
+            class="flex-grow px-4 py-3 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-800"
+          />
+          <button
+            type="submit"
+            class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-6 py-3 rounded-r-lg transition duration-300"
+          >
+            Subscribe
+          </button>
+        </form>
+
+        <p class="text-sm text-gray-500 dark:text-gray-400 mt-4">
+          We respect your privacy. Unsubscribe at any time.
+        </p>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+      <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div>
+            <div class="text-2xl font-bold text-emerald-500 mb-4">
+              <i class="fas fa-spa mr-2"></i>
+              <span>Blooming Delights</span>
+            </div>
+            <p class="text-gray-300 mb-4">
+              Bringing beauty and joy through flowers since 2010.
+            </p>
+            <div class="flex space-x-4">
+              <a
+                href="#"
+                class="text-gray-300 hover:text-emerald-400 transition duration-300"
+              >
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a
+                href="#"
+                class="text-gray-300 hover:text-emerald-400 transition duration-300"
+              >
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a
+                href="#"
+                class="text-gray-300 hover:text-emerald-400 transition duration-300"
+              >
+                <i class="fab fa-pinterest"></i>
+              </a>
+              <a
+                href="#"
+                class="text-gray-300 hover:text-emerald-400 transition duration-300"
+              >
+                <i class="fab fa-tiktok"></i>
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="font-semibold mb-4">Quick Links</h4>
+            <ul class="space-y-2">
+              <li>
+                <a
+                  href="#home"
+                  class="text-gray-300 hover:text-emerald-400 transition duration-300"
+                  >Home</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#flowers"
+                  class="text-gray-300 hover:text-emerald-400 transition duration-300"
+                  >Flowers</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#vases"
+                  class="text-gray-300 hover:text-emerald-400 transition duration-300"
+                  >Vases</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#money-bouquets"
+                  class="text-gray-300 hover:text-emerald-400 transition duration-300"
+                  >Money Bouquets</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#contact"
+                  class="text-gray-300 hover:text-emerald-400 transition duration-300"
+                  >Contact</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="font-semibold mb-4">Customer Service</h4>
+            <ul class="space-y-2">
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-300 hover:text-emerald-400 transition duration-300"
+                  >My Account</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-300 hover:text-emerald-400 transition duration-300"
+                  >Order Tracking</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-300 hover:text-emerald-400 transition duration-300"
+                  >Wishlist</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-300 hover:text-emerald-400 transition duration-300"
+                  >Delivery Information</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-300 hover:text-emerald-400 transition duration-300"
+                  >Returns Policy</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="font-semibold mb-4">Payment Methods</h4>
+            <div class="flex flex-wrap gap-3">
+              <i class="fab fa-cc-visa text-2xl text-gray-300"></i>
+              <i class="fab fa-cc-mastercard text-2xl text-gray-300"></i>
+              <i class="fab fa-cc-amex text-2xl text-gray-300"></i>
+              <i class="fab fa-cc-discover text-2xl text-gray-300"></i>
+              <i class="fab fa-cc-paypal text-2xl text-gray-300"></i>
+              <i class="fab fa-cc-apple-pay text-2xl text-gray-300"></i>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400"
+        >
+          <p>&copy; 2023 Blooming Delights. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Shopping Cart Sidebar -->
+    <div
+      id="cart-sidebar"
+      class="fixed top-0 right-0 w-full md:w-96 h-full bg-white dark:bg-gray-800 shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out z-50 overflow-y-auto"
+    >
+      <div class="p-6">
+        <div class="flex justify-between items-center mb-6">
+          <h3 class="text-xl font-bold">Your Cart</h3>
+          <button
+            id="cart-close"
+            class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+          >
+            <i class="fas fa-times text-xl"></i>
+          </button>
+        </div>
+
+        <div id="cart-items" class="space-y-4">
+          <!-- Cart items will be added here dynamically -->
+          <div id="empty-cart-message" class="text-center py-8">
+            <i class="fas fa-shopping-basket text-4xl text-gray-400 mb-4"></i>
+            <p class="text-gray-500">Your cart is empty</p>
+            <a
+              href="#flowers"
+              class="inline-block mt-4 text-emerald-500 hover:text-emerald-600"
+            >
+              <i class="fas fa-arrow-left mr-2"></i>Browse Flowers
+            </a>
+          </div>
+        </div>
+
+        <div class="border-t border-gray-200 dark:border-gray-700 mt-6 pt-6">
+          <div class="flex justify-between mb-2">
+            <span>Subtotal:</span>
+            <span id="cart-subtotal">$0.00</span>
+          </div>
+          <div class="flex justify-between mb-2">
+            <span>Shipping:</span>
+            <span>Calculated at checkout</span>
+          </div>
+          <div class="flex justify-between font-bold text-lg mt-4">
+            <span>Total:</span>
+            <span id="cart-total">$0.00</span>
+          </div>
+
+          <button
+            id="checkout-btn"
+            class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 px-4 rounded-lg mt-6 transition duration-300 flex items-center justify-center"
+          >
+            <i class="fas fa-credit-card mr-2"></i>Proceed to Checkout
+          </button>
+
+          <a
+            href="#flowers"
+            class="block text-center text-emerald-500 hover:text-emerald-600 mt-4 transition duration-300"
+          >
+            <i class="fas fa-arrow-left mr-2"></i>Continue Shopping
+          </a>
+        </div>
+      </div>
+    </div>
+    <div
+      id="cart-overlay"
+      class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"
+    ></div>
+
+    <!-- JavaScript -->
+    <script>
+      // Theme Toggle
+      const themeToggle = document.getElementById("theme-toggle");
+      const html = document.documentElement;
+
+      // Check for saved theme preference or use preferred color scheme
+      const savedTheme =
+        localStorage.getItem("theme") ||
+        (window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light");
+      html.classList.add(savedTheme);
+      updateThemeIcon(savedTheme);
+
+      themeToggle.addEventListener("click", () => {
+        html.classList.toggle("dark");
+        const currentTheme = html.classList.contains("dark") ? "dark" : "light";
+        localStorage.setItem("theme", currentTheme);
+        updateThemeIcon(currentTheme);
+      });
+
+      function updateThemeIcon(theme) {
+        const icon = themeToggle.querySelector("i");
+        icon.classList.toggle("fa-moon", theme === "light");
+        icon.classList.toggle("fa-sun", theme === "dark");
+      }
+
+      // Mobile Menu Toggle
+      const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
+      const mobileMenu = document.getElementById("mobile-menu");
+
+      mobileMenuToggle.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
+      });
+
+      // Close mobile menu when clicking on a link
+      document.querySelectorAll("#mobile-menu a").forEach((link) => {
+        link.addEventListener("click", () => {
+          mobileMenu.classList.add("hidden");
+        });
+      });
+
+      // Cart Functionality
+      const cartToggle = document.getElementById("cart-toggle");
+      const cartClose = document.getElementById("cart-close");
+      const cartSidebar = document.getElementById("cart-sidebar");
+      const cartOverlay = document.getElementById("cart-overlay");
+      const cartCount = document.getElementById("cart-count");
+      const cartItems = document.getElementById("cart-items");
+      const emptyCartMessage = document.getElementById("empty-cart-message");
+      const cartSubtotal = document.getElementById("cart-subtotal");
+      const cartTotal = document.getElementById("cart-total");
+      const checkoutBtn = document.getElementById("checkout-btn");
+
+      let cart = [];
+
+      // Toggle cart sidebar
+      cartToggle.addEventListener("click", () => {
+        cartSidebar.classList.remove("translate-x-full");
+        cartOverlay.classList.remove("hidden");
+        document.body.style.overflow = "hidden";
+      });
+
+      cartClose.addEventListener("click", () => {
+        cartSidebar.classList.add("translate-x-full");
+        cartOverlay.classList.add("hidden");
+        document.body.style.overflow = "";
+      });
+
+      cartOverlay.addEventListener("click", () => {
+        cartSidebar.classList.add("translate-x-full");
+        cartOverlay.classList.add("hidden");
+        document.body.style.overflow = "";
+      });
+
+      // Add to cart functionality
+      document.querySelectorAll(".add-to-cart").forEach((button) => {
+        button.addEventListener("click", () => {
+          const name = button.getAttribute("data-name");
+          const price = parseFloat(button.getAttribute("data-price"));
+
+          // Check if item already exists in cart
+          const existingItem = cart.find((item) => item.name === name);
+
+          if (existingItem) {
+            existingItem.quantity += 1;
+          } else {
+            cart.push({
+              name: name,
+              price: price,
+              quantity: 1,
+            });
+          }
+
+          updateCart();
+
+          // Show success animation
+          button.innerHTML = '<i class="fas fa-check mr-2"></i>Added!';
+          setTimeout(() => {
+            button.innerHTML = '<i class="fas fa-plus mr-2"></i>Add to Cart';
+          }, 2000);
+
+          // Show cart sidebar when adding an item
+          cartSidebar.classList.remove("translate-x-full");
+          cartOverlay.classList.remove("hidden");
+          document.body.style.overflow = "hidden";
+        });
+      });
+
+      // Update cart display
+      function updateCart() {
+        // Update cart count
+        const totalItems = cart.reduce(
+          (total, item) => total + item.quantity,
+          0
+        );
+        cartCount.textContent = totalItems;
+
+        // Update cart items
+        cartItems.innerHTML = "";
+
+        if (cart.length === 0) {
+          emptyCartMessage.classList.remove("hidden");
+          checkoutBtn.disabled = true;
+        } else {
+          emptyCartMessage.classList.add("hidden");
+          checkoutBtn.disabled = false;
+
+          cart.forEach((item) => {
+            const itemElement = document.createElement("div");
+            itemElement.className =
+              "cart-item flex justify-between items-center p-4 border border-gray-200 dark:border-gray-700 rounded-lg";
+
+            itemElement.innerHTML = `
+                        <div>
+                            <h4 class="font-medium">${item.name}</h4>
+                            <p class="text-gray-500 dark:text-gray-400">$${item.price.toFixed(
+                              2
+                            )} x ${item.quantity}</p>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="font-bold mr-4">$${(
+                              item.price * item.quantity
+                            ).toFixed(2)}</span>
+                            <div class="flex items-center">
+                                <button class="decrease-item text-gray-500 hover:text-emerald-500 px-2" data-name="${
+                                  item.name
+                                }">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <button class="increase-item text-gray-500 hover:text-emerald-500 px-2" data-name="${
+                                  item.name
+                                }">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                                <button class="remove-item text-red-500 hover:text-red-700 dark:hover:text-red-400 px-2" data-name="${
+                                  item.name
+                                }">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+
+            cartItems.appendChild(itemElement);
+          });
+
+          // Add event listeners to remove buttons
+          document.querySelectorAll(".remove-item").forEach((button) => {
+            button.addEventListener("click", () => {
+              const name = button.getAttribute("data-name");
+              cart = cart.filter((item) => item.name !== name);
+              updateCart();
+            });
+          });
+
+          // Add event listeners to increase buttons
+          document.querySelectorAll(".increase-item").forEach((button) => {
+            button.addEventListener("click", () => {
+              const name = button.getAttribute("data-name");
+              const item = cart.find((item) => item.name === name);
+              if (item) {
+                item.quantity += 1;
+                updateCart();
+              }
+            });
+          });
+
+          // Add event listeners to decrease buttons
+          document.querySelectorAll(".decrease-item").forEach((button) => {
+            button.addEventListener("click", () => {
+              const name = button.getAttribute("data-name");
+              const item = cart.find((item) => item.name === name);
+              if (item && item.quantity > 1) {
+                item.quantity -= 1;
+                updateCart();
+              }
+            });
+          });
+        }
+
+        // Update subtotal and total
+        const subtotal = cart.reduce(
+          (total, item) => total + item.price * item.quantity,
+          0
+        );
+        cartSubtotal.textContent = `$${subtotal.toFixed(2)}`;
+        cartTotal.textContent = `$${subtotal.toFixed(2)}`;
+      }
+
+      // Checkout button
+      checkoutBtn.addEventListener("click", () => {
+        alert("Checkout functionality would be implemented here!");
+      });
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+
+          const targetId = this.getAttribute("href");
+          const targetElement = document.querySelector(targetId);
+
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop - 80,
+              behavior: "smooth",
+            });
+          }
+        });
+      });
+
+      // Create floating petals
+      function createPetals() {
+        const petalsContainer = document.getElementById("petals-container");
+        const petalTypes = 5;
+        const petalCount = 15;
+
+        for (let i = 0; i < petalCount; i++) {
+          const petal = document.createElement("div");
+          petal.className = "petal";
+
+          // Random petal type (1-5)
+          const petalType = Math.floor(Math.random() * petalTypes) + 1;
+          petal.style.backgroundImage = `url('https://raw.githubusercontent.com/marwin1991/profile-card-devchallenge/2cdf81a5b1f3c0a149b0b6a8a5a7b0a8f9a8b6d9/petal${petalType}.svg')`;
+
+          // Random size
+          const size = Math.random() * 20 + 10;
+          petal.style.width = `${size}px`;
+          petal.style.height = `${size}px`;
+
+          // Random position
+          petal.style.left = `${Math.random() * 100}vw`;
+          petal.style.top = `${Math.random() * 100}vh`;
+
+          // Random animation
+          const duration = Math.random() * 15 + 10;
+          const delay = Math.random() * 5;
+          petal.style.animation = `float ${duration}s ease-in-out ${delay}s infinite`;
+
+          // Random rotation
+          petal.style.transform = `rotate(${Math.random() * 360}deg)`;
+
+          petalsContainer.appendChild(petal);
+        }
+      }
+
+      // Initialize cart and petals
+      updateCart();
+      createPetals();
+    </script>
+  </body>
+</html>

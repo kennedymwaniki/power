@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blooming Delights - Flower Shop</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Floating petals background -->
+    <div id="petals-container"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+      <div class="container">
+        <div class="nav-header">
+          <div class="logo">
+            <i class="fas fa-spa float-animation"></i>
+            <span>Blooming Delights</span>
+          </div>
+
+          <div class="desktop-menu">
+            <a href="#home" class="nav-link">Home</a>
+            <a href="#flowers" class="nav-link">Flowers</a>
+            <a href="#vases" class="nav-link">Vases</a>
+            <a href="#money-bouquets" class="nav-link">Money Bouquets</a>
+            <a href="#contact" class="nav-link">Contact</a>
+          </div>
+
+          <div class="nav-actions">
+            <button id="cart-toggle" class="cart-button">
+              <i class="fas fa-shopping-cart"></i>
+              <span id="cart-count">0</span>
+            </button>
+
+            <button id="theme-toggle" class="theme-button">
+              <i class="fas fa-moon"></i>
+            </button>
+
+            <button id="mobile-menu-toggle" class="mobile-menu-button">
+              <i class="fas fa-bars"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu hidden">
+          <a href="#home" class="nav-link">Home</a>
+          <a href="#flowers" class="nav-link">Flowers</a>
+          <a href="#vases" class="nav-link">Vases</a>
+          <a href="#money-bouquets" class="nav-link">Money Bouquets</a>
+          <a href="#contact" class="nav-link">Contact</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+      <div class="container">
+        <h1>Beautiful Flowers for Every Occasion</h1>
+        <p>
+          Fresh, vibrant flowers to brighten your day or surprise someone
+          special
+        </p>
+        <a href="#flowers" class="cta-button">
+          <i class="fas fa-arrow-down"></i>Shop Now
+        </a>
+      </div>
+    </section>
+
+    <!-- Flowers Section -->
+    <section id="flowers" class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Our Flower Collection</h2>
+          <p>
+            Discover our exquisite selection of hand-arranged bouquets for every
+            occasion
+          </p>
+        </div>
+        <div class="product-grid">
+          <!-- Flower Card 1 -->
+          <div class="flower-card">
+            <div class="product-image">
+              <img
+                src="https://images.unsplash.com/photo-1526047932273-341f2a7631f9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1480&q=80"
+                alt="Rose Bouquet"
+              />
+              <div class="image-overlay"></div>
+            </div>
+            <div class="product-info">
+              <h3>Elegant Rose Bouquet</h3>
+              <p>
+                A classic arrangement of 12 premium roses in your choice of
+                color.
+              </p>
+              <div class="product-footer">
+                <span class="price">$49.99</span>
+                <button
+                  class="add-to-cart"
+                  data-name="Elegant Rose Bouquet"
+                  data-price="49.99"
+                >
+                  <i class="fas fa-plus"></i>Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Flower Card 2 -->
+          <div class="flower-card">
+            <div class="product-image">
+              <img
+                src="https://images.unsplash.com/photo-1560717843-60cb3e6dd0f5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                alt="Tulip Arrangement"
+              />
+              <div class="image-overlay"></div>
+            </div>
+            <div class="product-info">
+              <h3>Spring Tulip Arrangement</h3>
+              <p>Bright and cheerful tulips in a mix of spring colors.</p>
+              <div class="product-footer">
+                <span class="price">$39.99</span>
+                <button
+                  class="add-to-cart"
+                  data-name="Spring Tulip Arrangement"
+                  data-price="39.99"
+                >
+                  <i class="fas fa-plus"></i>Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Flower Card 3 -->
+          <div class="flower-card">
+            <div class="product-image">
+              <img
+                src="https://images.unsplash.com/photo-1560801631-fbd9c0ddf13e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                alt="Lily Bouquet"
+              />
+              <div class="image-overlay"></div>
+            </div>
+            <div class="product-info">
+              <h3>Luxury Lily Bouquet</h3>
+              <p>
+                Exotic lilies with delicate fragrance, perfect for special
+                occasions.
+              </p>
+              <div class="product-footer">
+                <span class="price">$59.99</span>
+                <button
+                  class="add-to-cart"
+                  data-name="Luxury Lily Bouquet"
+                  data-price="59.99"
+                >
+                  <i class="fas fa-plus"></i>Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Flower Card 4 -->
+          <div class="flower-card">
+            <div class="product-image">
+              <img
+                src="https://images.unsplash.com/photo-1529068755536-a5ade0dcb4e8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1481&q=80"
+                alt="Sunflower Bouquet"
+              />
+              <div class="image-overlay"></div>
+            </div>
+            <div class="product-info">
+              <h3>Sunshine Sunflower Bouquet</h3>
+              <p>
+                Bright yellow sunflowers that bring summer joy all year round.
+              </p>
+              <div class="product-footer">
+                <span class="price">$45.99</span>
+                <button
+                  class="add-to-cart"
+                  data-name="Sunshine Sunflower Bouquet"
+                  data-price="45.99"
+                >
+                  <i class="fas fa-plus"></i>Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Flower Card 5 -->
+          <div class="flower-card">
+            <div class="product-image">
+              <img
+                src="https://images.unsplash.com/photo-1559780394-4c7d929c6047?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                alt="Orchid Arrangement"
+              />
+              <div class="image-overlay"></div>
+            </div>
+            <div class="product-info">
+              <h3>Elegant Orchid Arrangement</h3>
+              <p>Sophisticated orchids that add luxury to any space.</p>
+              <div class="product-footer">
+                <span class="price">$69.99</span>
+                <button
+                  class="add-to-cart"
+                  data-name="Elegant Orchid Arrangement"
+                  data-price="69.99"
+                >
+                  <i class="fas fa-plus"></i>Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Flower Card 6 -->
+          <div class="flower-card">
+            <div class="product-image">
+              <img
+                src="https://images.unsplash.com/photo-1519378058457-4c29a0ab2b5d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1448&q=80"
+                alt="Wildflower Bouquet"
+              />
+              <div class="image-overlay"></div>
+            </div>
+            <div class="product-info">
+              <h3>Wildflower Meadow Bouquet</h3>
+              <p>A rustic mix of seasonal wildflowers for a natural look.</p>
+              <div class="product-footer">
+                <span class="price">$42.99</span>
+                <button
+                  class="add-to-cart"
+                  data-name="Wildflower Meadow Bouquet"
+                  data-price="42.99"
+                >
+                  <i class="fas fa-plus"></i>Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Vases Section -->
+    <section id="vases" class="section vases-section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Beautiful Vases</h2>
+          <p>Complement your flowers with our hand-selected vases</p>
+        </div>
+        <div class="product-grid">
+          <!-- Vase 1 -->
+          <div class="flower-card vase-card">
+            <div class="product-image">
+              <img
+                src="https://images.unsplash.com/photo-1585320800885-3496f8e0d0e9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                alt="Glass Vase with Flowers"
+              />
+              <div class="image-overlay"></div>
+            </div>
+            <div class="product-info">
+              <h3>Crystal Clear Glass Vase</h3>
+              <p>
+                Modern and elegant glass vase that complements any flower
+                arrangement.
+              </p>
+              <div class="product-footer">
+                <span class="price">$29.99</span>
+                <button
+                  class="add-to-cart"
+                  data-name="Crystal Clear Glass Vase"
+                  data-price="29.99"
+                >
+                  <i class="fas fa-plus"></i>Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Vase 2 -->
+          <div class="flower-card vase-card">
+            <div class="product-image">
+              <img
+                src="https://images.unsplash.com/photo-1587854692152-cbe660dbde88?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80"
+                alt="Ceramic Vase with Flowers"
+              />
+              <div class="image-overlay"></div>
+            </div>
+            <div class="product-info">
+              <h3>Handcrafted Ceramic Vase</h3>
+              <p>Artisanal ceramic vase with unique patterns and textures.</p>
+              <div class="product-footer">
+                <span class="price">$39.99</span>
+                <button
+                  class="add-to-cart"
+                  data-name="Handcrafted Ceramic Vase"
+                  data-price="39.99"
+                >
+                  <i class="fas fa-plus"></i>Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Vase 3 -->
+          <div class="flower-card vase-card">
+            <div class="product-image">
+              <img
+                src="https://images.unsplash.com/photo-1605000797499-95a51c5269ae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80"
+                alt="Modern Vase with Flowers"
+              />
+              <div class="image-overlay"></div>
+            </div>
+            <div class="product-info">
+              <h3>Contemporary Metal Vase</h3>
+              <p>
+                Sleek metal vase with a minimalist design for modern interiors.
+              </p>
+              <div class="product-footer">
+                <span class="price">$34.99</span>
+                <button
+                  class="add-to-cart"
+                  data-name="Contemporary Metal Vase"
+                  data-price="34.99"
+                >
+                  <i class="fas fa-plus"></i>Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Money Bouquets Section -->
+    <section id="money-bouquets" class="section money-bouquet-section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Money Bouquets</h2>
+          <p>
+            The perfect gift that grows - money bouquets for special occasions
+          </p>
+        </div>
+        <div class="money-bouquet-grid">
+          <!-- Money Bouquet 1 -->
+          <div class="flower-card money-bouquet-card">
+            <div class="product-image">
+              <img
+                src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                alt="Money Bouquet with Flowers"
+              />
+              <div class="image-overlay"></div>
+            </div>
+            <div class="product-info">
+              <h3>Classic Money Bouquet</h3>
+              <p>
+                Elegant arrangement with $100 in bills creatively displayed with
+                flowers.
+              </p>
+              <div class="product-footer">
+                <span class="price">From $100</span>
+                <button
+                  class="add-to-cart customize-btn"
+                  data-name="Classic Money Bouquet"
+                  data-price="100"
+                >
+                  <i class="fas fa-cog"></i>Customize
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Money Bouquet 2 -->
+          <div class="flower-card money-bouquet-card">
+            <div class="product-image">
+              <img
+                src="https://images.unsplash.com/photo-1607082349566-73f2eab57599?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                alt="Luxury Money Bouquet with Flowers"
+              />
+              <div class="image-overlay"></div>
+            </div>
+            <div class="product-info">
+              <h3>Luxury Money Bouquet</h3>
+              <p>Premium arrangement with $500 in bills and premium flowers.</p>
+              <div class="product-footer">
+                <span class="price">From $500</span>
+                <button
+                  class="add-to-cart customize-btn"
+                  data-name="Luxury Money Bouquet"
+                  data-price="500"
+                >
+                  <i class="fas fa-cog"></i>Customize
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section testimonials-section">
+      <div class="container">
+        <div class="section-header">
+          <h2>What Our Customers Say</h2>
+          <p>Hear from our happy customers about their experiences</p>
+        </div>
+
+        <div class="testimonials-grid">
+          <!-- Testimonial 1 -->
+          <div class="testimonial">
+            <div class="testimonial-header">
+              <img
+                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1587&q=80"
+                alt="Customer"
+                class="testimonial-image"
+              />
+              <div class="testimonial-info">
+                <h4>Sarah Johnson</h4>
+                <div class="star-rating">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                </div>
+              </div>
+            </div>
+            <p>
+              "The roses arrived fresh and beautiful, exactly as pictured. My
+              mother was thrilled with her birthday bouquet!"
+            </p>
+          </div>
+
+          <!-- Testimonial 2 -->
+          <div class="testimonial">
+            <div class="testimonial-header">
+              <img
+                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1587&q=80"
+                alt="Customer"
+                class="testimonial-image"
+              />
+              <div class="testimonial-info">
+                <h4>Michael Chen</h4>
+                <div class="star-rating">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                </div>
+              </div>
+            </div>
+            <p>
+              "I ordered the money bouquet for my wife's anniversary gift. The
+              presentation was stunning and she loved it!"
+            </p>
+          </div>
+
+          <!-- Testimonial 3 -->
+          <div class="testimonial">
+            <div class="testimonial-header">
+              <img
+                src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1587&q=80"
+                alt="Customer"
+                class="testimonial-image"
+              />
+              <div class="testimonial-info">
+                <h4>Emily Rodriguez</h4>
+                <div class="star-rating">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star-half-alt"></i>
+                </div>
+              </div>
+            </div>
+            <p>
+              "The wildflower bouquet brightened up my entire apartment. The
+              flowers lasted much longer than I expected!"
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact-section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Contact Us</h2>
+          <p>
+            We'd love to hear from you! Reach out with any questions or special
+            requests
+          </p>
+        </div>
+        <div class="contact-grid">
+          <div class="contact-info">
+            <h3>Get in Touch</h3>
+            <p>
+              Have questions about our flowers or need help with an order? Reach
+              out to us!
+            </p>
+
+            <div class="contact-items">
+              <div class="contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <div>
+                  <h4>Address</h4>
+                  <p>123 Flower Street, Garden City, GC 12345</p>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <i class="fas fa-phone-alt"></i>
+                <div>
+                  <h4>Phone</h4>
+                  <p>(123) 456-7890</p>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <div>
+                  <h4>Email</h4>
+                  <p>info@bloomingdelights.com</p>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <i class="fas fa-clock"></i>
+                <div>
+                  <h4>Hours</h4>
+                  <p>
+                    Monday - Friday: 9am - 6pm<br />Saturday: 10am - 4pm<br />Sunday:
+                    Closed
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="social-links">
+              <h4>Follow Us</h4>
+              <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-pinterest"></i></a>
+                <a href="#"><i class="fab fa-tiktok"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-form">
+            <h3>Send Us a Message</h3>
+            <form class="form">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" />
+              </div>
+
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" />
+              </div>
+
+              <div class="form-group">
+                <label for="subject">Subject</label>
+                <input type="text" id="subject" />
+              </div>
+
+              <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" rows="4"></textarea>
+              </div>
+
+              <button type="submit" class="submit-button">
+                <i class="fas fa-paper-plane"></i>Send Message
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section">
+      <div class="container">
+        <h2>Join Our Flower Club</h2>
+        <p>
+          Subscribe to our newsletter for exclusive offers, flower care tips,
+          and seasonal specials
+        </p>
+
+        <form class="newsletter-form">
+          <input type="email" placeholder="Your email address" />
+          <button type="submit">Subscribe</button>
+        </form>
+
+        <p class="disclaimer">
+          We respect your privacy. Unsubscribe at any time.
+        </p>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-about">
+            <div class="footer-logo">
+              <i class="fas fa-spa"></i>
+              <span>Blooming Delights</span>
+            </div>
+            <p>Bringing beauty and joy through flowers since 2010.</p>
+            <div class="footer-social">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-pinterest"></i></a>
+              <a href="#"><i class="fab fa-tiktok"></i></a>
+            </div>
+          </div>
+
+          <div class="footer-links">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="#home">Home</a></li>
+              <li><a href="#flowers">Flowers</a></li>
+              <li><a href="#vases">Vases</a></li>
+              <li><a href="#money-bouquets">Money Bouquets</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-links">
+            <h4>Customer Service</h4>
+            <ul>
+              <li><a href="#">My Account</a></li>
+              <li><a href="#">Order Tracking</a></li>
+              <li><a href="#">Wishlist</a></li>
+              <li><a href="#">Delivery Information</a></li>
+              <li><a href="#">Returns Policy</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-payments">
+            <h4>Payment Methods</h4>
+            <div class="payment-icons">
+              <i class="fab fa-cc-visa"></i>
+              <i class="fab fa-cc-mastercard"></i>
+              <i class="fab fa-cc-amex"></i>
+              <i class="fab fa-cc-discover"></i>
+              <i class="fab fa-cc-paypal"></i>
+              <i class="fab fa-cc-apple-pay"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2023 Blooming Delights. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Shopping Cart Sidebar -->
+    <div id="cart-sidebar" class="cart-sidebar">
+      <div class="cart-header">
+        <h3>Your Cart</h3>
+        <button id="cart-close" class="close-button">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <div id="cart-items" class="cart-items">
+        <!-- Cart items will be added here dynamically -->
+        <div id="empty-cart-message" class="empty-cart">
+          <i class="fas fa-shopping-basket"></i>
+          <p>Your cart is empty</p>
+          <a href="#flowers">
+            <i class="fas fa-arrow-left"></i>Browse Flowers
+          </a>
+        </div>
+      </div>
+
+      <div class="cart-footer">
+        <div class="cart-summary">
+          <div class="summary-row">
+            <span>Subtotal:</span>
+            <span id="cart-subtotal">$0.00</span>
+          </div>
+          <div class="summary-row">
+            <span>Shipping:</span>
+            <span>Calculated at checkout</span>
+          </div>
+          <div class="summary-row total">
+            <span>Total:</span>
+            <span id="cart-total">$0.00</span>
+          </div>
+        </div>
+
+        <button id="checkout-btn" class="checkout-button" disabled>
+          <i class="fas fa-credit-card"></i>Proceed to Checkout
+        </button>
+
+        <a href="#flowers" class="continue-shopping">
+          <i class="fas fa-arrow-left"></i>Continue Shopping
+        </a>
+      </div>
+    </div>
+    <div id="cart-overlay" class="cart-overlay"></div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
