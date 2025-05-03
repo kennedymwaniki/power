@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Space Explorer Interactive</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Space Explorer <span class="stars">✨</span></h1>
+        <p class="subtitle">Your interactive journey through the cosmos</p>
+      </header>
+
+      <!-- Event Handling Section -->
+      <section id="event-section" class="section">
+        <h2>
+          Mission Control <span class="command-text">// Event Handling</span>
+        </h2>
+        <div class="control-panel">
+          <button id="launch-btn" class="btn primary-btn">
+            Launch Rocket 🚀
+          </button>
+          <div id="hover-area" class="hover-zone">
+            <p>Hover to scan planet</p>
+          </div>
+          <div id="key-detector" class="key-zone" tabindex="0">
+            <p>Click here & press any key</p>
+            <div id="key-display"></div>
+          </div>
+          <div id="secret-zone" class="secret-area">
+            <p>Double-click for secret message</p>
+          </div>
+        </div>
+        <div id="event-output" class="output-display">
+          <p>Mission status: Awaiting commands...</p>
+        </div>
+      </section>
+
+      <!-- Interactive Elements Section -->
+      <section id="interactive-section" class="section">
+        <h2>
+          Cosmic Gallery
+          <span class="command-text">// Interactive Elements</span>
+        </h2>
+
+        <!-- Tabs System -->
+        <div class="tabs-container">
+          <div class="tabs">
+            <button class="tab-btn active" data-tab="planets">Planets</button>
+            <button class="tab-btn" data-tab="spacecraft">Spacecraft</button>
+            <button class="tab-btn" data-tab="aliens">Alien Life</button>
+          </div>
+
+          <div class="tab-content active" id="planets">
+            <!-- Image Gallery/Slideshow -->
+            <div class="gallery">
+              <div class="gallery-container">
+                <div class="gallery-item active">
+                  <h3>Earth</h3>
+                  <div class="image-placeholder blue">
+                    <span>🌎</span>
+                  </div>
+                  <p>Our home planet with abundant water and life.</p>
+                </div>
+                <div class="gallery-item">
+                  <h3>Mars</h3>
+                  <div class="image-placeholder red">
+                    <span>🔴</span>
+                  </div>
+                  <p>The red planet, possibly our second home someday.</p>
+                </div>
+                <div class="gallery-item">
+                  <h3>Jupiter</h3>
+                  <div class="image-placeholder orange">
+                    <span>🪐</span>
+                  </div>
+                  <p>The largest planet in our solar system.</p>
+                </div>
+              </div>
+              <div class="gallery-controls">
+                <button id="prev-btn" class="btn">Previous</button>
+                <div class="gallery-dots">
+                  <span class="dot active" data-index="0"></span>
+                  <span class="dot" data-index="1"></span>
+                  <span class="dot" data-index="2"></span>
+                </div>
+                <button id="next-btn" class="btn">Next</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-content" id="spacecraft">
+            <div class="accordion">
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <h3>Apollo Missions</h3>
+                  <span class="accordion-icon">+</span>
+                </div>
+                <div class="accordion-content">
+                  <p>
+                    The Apollo program was designed to land humans on the Moon
+                    and bring them safely back to Earth.
+                  </p>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <h3>Mars Rovers</h3>
+                  <span class="accordion-icon">+</span>
+                </div>
+                <div class="accordion-content">
+                  <p>
+                    Series of robotic rovers that have been exploring the
+                    surface of Mars since the 1990s.
+                  </p>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <h3>Voyager Program</h3>
+                  <span class="accordion-icon">+</span>
+                </div>
+                <div class="accordion-content">
+                  <p>
+                    The Voyager spacecraft are the only human-made objects in
+                    interstellar space.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-content" id="aliens">
+            <div class="color-changer">
+              <h3>Alien Signal Decoder</h3>
+              <p>Click the button to decode potential alien signals!</p>
+              <button id="color-btn" class="btn primary-btn">
+                Decode Signal
+              </button>
+              <div id="color-display" class="color-box">
+                <span>?</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Form Validation Section -->
+      <section id="form-section" class="section">
+        <h2>
+          Join The Space Program
+          <span class="command-text">// Form Validation</span>
+        </h2>
+        <form id="space-form">
+          <div class="form-group">
+            <label for="name"
+              >Space Explorer Name <span class="required">*</span></label
+            >
+            <input type="text" id="name" name="name" required />
+            <div class="validation-message" id="name-validation"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="email"
+              >Communication Link (Email) <span class="required">*</span></label
+            >
+            <input type="email" id="email" name="email" required />
+            <div class="validation-message" id="email-validation"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="password"
+              >Secret Access Code <span class="required">*</span></label
+            >
+            <input type="password" id="password" name="password" required />
+            <div class="validation-message" id="password-validation"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="mission">Choose Your Mission</label>
+            <select id="mission" name="mission">
+              <option value="">-- Select Mission --</option>
+              <option value="mars">Mars Colony</option>
+              <option value="moon">Lunar Base</option>
+              <option value="orbit">Earth Orbit Station</option>
+              <option value="deep">Deep Space Exploration</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Special Skills (select all that apply):</label>
+            <div class="checkbox-group">
+              <label>
+                <input type="checkbox" name="skills" value="piloting" /> Space
+                Piloting
+              </label>
+              <label>
+                <input type="checkbox" name="skills" value="science" />
+                Xenobiology
+              </label>
+              <label>
+                <input type="checkbox" name="skills" value="engineering" />
+                Spacecraft Engineering
+              </label>
+              <label>
+                <input type="checkbox" name="skills" value="medical" /> Space
+                Medicine
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <button type="submit" class="btn primary-btn">
+              Submit Application
+            </button>
+          </div>
+        </form>
+        <div id="form-result" class="result-display"></div>
+      </section>
+
+      <footer>
+        <p>
+          Created with 💫 by Space Command | Press "Esc" for emergency protocol
+        </p>
+      </footer>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
