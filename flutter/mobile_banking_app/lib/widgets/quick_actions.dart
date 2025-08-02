@@ -1,10 +1,21 @@
 import 'package:flutter/material.dart';
+import '../screens/send_money_screen.dart';
+import '../utils/page_transitions.dart';
 
 class QuickActions extends StatelessWidget {
   const QuickActions({super.key});
 
-  void _onActionPressed(String action) {
+  void _onActionPressed(BuildContext context, String action) {
     print('Quick Action: $action clicked!');
+    
+    if (action == 'Transfer') {
+      // Navigate to Send Money screen with custom transition
+      context.pushWithCustomTransition(
+        const SendMoneyScreen(),
+        transitionType: TransitionType.bankingSpecial,
+        duration: const Duration(milliseconds: 800),
+      );
+    }
   }
 
   @override
@@ -28,25 +39,25 @@ class QuickActions extends StatelessWidget {
               icon: Icons.send,
               label: 'Transfer',
               color: const Color(0xFF4CAF50),
-              onTap: () => _onActionPressed('Transfer'),
+              onTap: () => _onActionPressed(context, 'Transfer'),
             ),
             _buildActionButton(
               icon: Icons.payment,
               label: 'Pay Bills',
               color: const Color(0xFFFF9800),
-              onTap: () => _onActionPressed('Pay Bills'),
+              onTap: () => _onActionPressed(context, 'Pay Bills'),
             ),
             _buildActionButton(
               icon: Icons.add_circle,
               label: 'Deposit',
               color: const Color(0xFF2196F3),
-              onTap: () => _onActionPressed('Deposit'),
+              onTap: () => _onActionPressed(context, 'Deposit'),
             ),
             _buildActionButton(
               icon: Icons.more_horiz,
               label: 'More',
               color: const Color(0xFF9C27B0),
-              onTap: () => _onActionPressed('More'),
+              onTap: () => _onActionPressed(context, 'More'),
             ),
           ],
         ),

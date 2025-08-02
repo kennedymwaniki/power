@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../utils/page_transitions.dart';
+import 'home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -17,8 +19,12 @@ class _LoginScreenState extends State<LoginScreen> {
     print('Username: ${_usernameController.text}');
     print('Password: ${_passwordController.text}');
     
-    // Navigate to home screen
-    Navigator.pushReplacementNamed(context, '/home');
+    // Navigate to home screen with custom transition
+    context.pushReplacementWithCustomTransition(
+      const HomeScreen(),
+      transitionType: TransitionType.bankingSpecial,
+      duration: const Duration(milliseconds: 1000),
+    );
   }
 
   void _onRegisterPressed() {

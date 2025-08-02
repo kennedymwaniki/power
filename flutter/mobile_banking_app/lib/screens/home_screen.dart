@@ -2,9 +2,35 @@ import 'package:flutter/material.dart';
 import '../widgets/balance_card.dart';
 import '../widgets/quick_actions.dart';
 import '../widgets/recent_transactions.dart';
+import '../widgets/animated_dashboard_widgets.dart';
+import '../utils/page_transitions.dart';
+import 'login_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
+  late AnimationController _dashboardAnimationController;
+
+  @override
+  void initState() {
+    super.initState();
+    _setupAnimations();
+  }
+
+  void _setupAnimations() {
+    _dashboardAnimationController = AnimationController(
+      duration: const Duration(milliseconds: 1500),
+      vsync: this,
+    );
+    
+    // Start dashboard animation
+    _dashboardAnimationController.forward();
+  }
 
   void _onActionButtonPressed(String action) {
     print('$action Button Clicked!');
@@ -35,7 +61,11 @@ class HomeScreen extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.logout, color: Colors.white),
             onPressed: () {
-              Navigator.pushReplacementNamed(context, '/login');
+              context.pushReplacementWithCustomTransition(
+                const LoginScreen(),
+                transitionType: TransitionType.slideFromLeft,
+                duration: const Duration(milliseconds: 800),
+              );
             },
           ),
         ],
@@ -187,12 +217,56 @@ class HomeScreen extends StatelessWidget {
               
               const SizedBox(height: 24),
               
-              // Balance Card
-              const BalanceCard(),
-              
+              // Enhanced Dashboard Cards with Animation
+              GridView.count(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                crossAxisCount: 2,
+                crossAxisSpacing: 16,
+                mainAxisSpacing: 16,
+                childAspectRatio: 1.4,
+                children: [
+                  AnimatedDashboardCard(
+                    title: 'Monthly Spending',
+                    value: '\$2,847.50',
+                    icon: Icons.trending_down,
+                    backgroundColor: const Color(0xFFFF6B6B),
+                    animationDelay: 100,
+                    onTap: () => print('Monthly Spending Card Tapped!'),
+                  ),
+                  AnimatedDashboardCard(
+                    title: 'Savings Goal',
+                    value: '\$8,234.10',
+                    icon: Icons.savings,
+                    backgroundColor: const Color(0xFF4ECDC4),
+                    animationDelay: 200,
+                    onTap: () => print('Savings Goal Card Tapped!'),
+                  ),
+                  AnimatedDashboardCard(
+                    title: 'Investments',
+                    value: '\$15,678.20',
+                    icon: Icons.show_chart,
+                    backgroundColor: const Color(0xFF45B7D1),
+                    animationDelay: 300,
+                    onTap: () => print('Investments Card Tapped!'),
+                  ),
+                  AnimatedDashboardCard(
+                    title: 'Credit Score',
+                    value: '785',
+                    icon: Icons.credit_score,
+                    backgroundColor: const Color(0xFF96CEB4),
+                    animationDelay: 400,
+                    onTap: () => print('Credit Score Card Tapped!'),
+                  ),
+                ],
+              ),
+
               const SizedBox(height: 24),
               
-              // Quick Actions
+              // Balance Card
+              const BalanceCard(),
+
+              const SizedBox(height: 24),              // Quick Actions
               const QuickActions(),
               
               const SizedBox(height: 24),
@@ -236,5 +310,11 @@ class HomeScreen extends StatelessWidget {
         },
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _dashboardAnimationController.dispose();
+    super.dispose();
   }
 }
