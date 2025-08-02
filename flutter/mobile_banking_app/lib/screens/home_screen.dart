@@ -5,6 +5,9 @@ import '../widgets/recent_transactions.dart';
 import '../widgets/animated_dashboard_widgets.dart';
 import '../utils/page_transitions.dart';
 import 'login_screen.dart';
+import 'send_money_screen.dart';
+import 'profile_management_screen.dart';
+import 'transaction_history_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -307,6 +310,36 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         ],
         onTap: (index) {
           print('Bottom nav item $index clicked!');
+          switch (index) {
+            case 0:
+              // Home - already here
+              break;
+            case 1:
+              // Accounts
+              print('Navigate to Accounts');
+              break;
+            case 2:
+              // Transfer
+              context.pushWithCustomTransition(
+                const SendMoneyScreen(),
+                transitionType: TransitionType.slideFromRight,
+              );
+              break;
+            case 3:
+              // History
+              context.pushWithCustomTransition(
+                const TransactionHistoryScreen(),
+                transitionType: TransitionType.slideFromRight,
+              );
+              break;
+            case 4:
+              // Profile
+              context.pushWithCustomTransition(
+                const ProfileManagementScreen(),
+                transitionType: TransitionType.slideFromBottom,
+              );
+              break;
+          }
         },
       ),
     );
@@ -316,5 +349,149 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   void dispose() {
     _dashboardAnimationController.dispose();
     super.dispose();
+  }
+}
+
+// Enhanced Animated Dashboard Card Widget
+class AnimatedDashboardCard extends StatefulWidget {
+  final String title;
+  final String value;
+  final IconData icon;
+  final Color backgroundColor;
+  final int animationDelay;
+  final VoidCallback? onTap;
+
+  const AnimatedDashboardCard({
+    super.key,
+    required this.title,
+    required this.value,
+    required this.icon,
+    required this.backgroundColor,
+    this.animationDelay = 0,
+    this.onTap,
+  });
+
+  @override
+  State<AnimatedDashboardCard> createState() => _AnimatedDashboardCardState();
+}
+
+class _AnimatedDashboardCardState extends State<AnimatedDashboardCard>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> _scaleAnimation;
+  late Animation<double> _opacityAnimation;
+  late Animation<Offset> _slideAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      duration: const Duration(milliseconds: 600),
+      vsync: this,
+    );
+
+    _scaleAnimation = Tween<double>(begin: 0.3, end: 1.0).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.elasticOut),
+    );
+
+    _opacityAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.easeIn),
+    );
+
+    _slideAnimation = Tween<Offset>(
+      begin: const Offset(0, 0.5),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(parent: _animationController, curve: Curves.decelerate));
+
+    // Start animation with delay
+    Future.delayed(Duration(milliseconds: widget.animationDelay), () {
+      if (mounted) {
+        _animationController.forward();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _animationController,
+      builder: (context, child) {
+        return SlideTransition(
+          position: _slideAnimation,
+          child: FadeTransition(
+            opacity: _opacityAnimation,
+            child: ScaleTransition(
+              scale: _scaleAnimation,
+              child: GestureDetector(
+                onTap: widget.onTap,
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        widget.backgroundColor,
+                        widget.backgroundColor.withOpacity(0.8),
+                      ],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        color: widget.backgroundColor.withOpacity(0.3),
+                        blurRadius: 12,
+                        offset: const Offset(0, 6),
+                      ),
+                    ],
+                  ),
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(16),
+                      onTap: widget.onTap,
+                      child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Icon(
+                              widget.icon,
+                              color: Colors.white,
+                              size: 24,
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              widget.value,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              widget.title,
+                              style: const TextStyle(
+                                color: Colors.white70,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 }
